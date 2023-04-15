@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All news list</h1>
+    {% for new in news_list %}  
+        <a href="{% url 'news_detail_page' new.pk %}">
+            <li>{{ new.title}}</li>
+        </a>
+        <img src="{{new.image.url}}" alt="">
+    {% endfor %} 
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}World {% endblock %}
+
+{% block content %}
+    {% for news in world_news %}
+       <div class="container">
+           <div class="row">
+               <div class="col-lg-8 ">
+                   <img src="{{news.image.url}}" alt="{{news.title}}" style="width: 50%;">
+                   <h2 class="">{{news.title}}</h2>
+               </div>
+           </div>
+       </div>
+    {% endfor %}
+{% endblock %}
