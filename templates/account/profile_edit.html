@@ -1,0 +1,15 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %}Change User Info{% endblock %}
+
+{% block content %}
+<h1>Register New User</h1>
+<p>Siz o'zingiz haqingizdagi ma'lumotlardi quydagi form orqali o'zgartirishingiz mumkin</p>
+<form action="" enctype="multipart/form-data  " method="post">{% csrf_token %}
+    {{user_form.as_p}}
+    {{profile_form.as_p}}
+    <button type="submit">Change</button>
+</form>
+
+{% endblock %}

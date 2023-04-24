@@ -1,0 +1,11 @@
+{% extends 'news/base.html' %}
+
+{% block title %} Add News {% endblock %}
+
+{% block content %}
+   <h2 class="text-center">Add News</h2>
+   <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+       {{form.as_p}}
+   <button type="submit" class="btn btn-info ml-2">Add News</button>
+   </form>
+{% endblock %}

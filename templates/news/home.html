@@ -1,5 +1,6 @@
 {% extends 'news/base.html' %}
 {% load static %}
+{% load hitcount_tags %}
 
 {% block title %} Bosh sahifa {% endblock %}
 
@@ -28,7 +29,8 @@
             {% for news in news_list %}
             <li>
               <div class="media"> <a href="{{news.get_absolute_url}}" class="media-left"> <img alt="" src="{{news.image.url}}"> </a>
-                <div class="media-body"> <a href="{{news.get_absolute_url}}" class="catg_title">{{news.title}}</a> </div>
+                <div class="media-body"> <a href="{{news.get_absolute_url}}" class="catg_title">{{news.title}}</a><p>View count <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for news %}</p></div>
+                
               </div>
             </li>
             {% endfor %}
@@ -53,6 +55,7 @@
                   <figure class="bsbig_fig"> <a href="{{local.get_absolute_url}}" class="featured_img"> <img alt="" src="{{local.image.url}}"> <span class="overlay"></span> </a>
                     <figcaption> <a href="{{local.get_absolute_url}}">{{local.title}}</a> </figcaption>
                     <p>{{local.title}}</p>
+                    <p>View count <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for local %}</p>
                   </figure>
                 </li>
                     {% endif %}
@@ -65,7 +68,7 @@
                    {% if forloop.counter > 1 %}
                 <li>
                   <div class="media wow fadeInDown"> <a href="{{local.get_absolute_url}}" class="media-left"> <img alt="" src="{{local.image.url}}"> </a>
-                    <div class="media-body"> <a href="{{local.get_absolute_url}}" class="catg_title">{{local.title}}</a> </div>
+                    <div class="media-body"> <a href="{{local.get_absolute_url}}" class="catg_title">{{local.title}}</a> <p>View count <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for local %}</p></div>
                   </div>
                 </li>        
                    {% endif %}
@@ -82,7 +85,7 @@
                      {% if forloop.first %}
                   <li>
                     <figure class="bsbig_fig"> <a href="{{news.get_absolute_url}}" class="featured_img"> <img alt="" src="{{news.image.url}}"> <span class="overlay"></span> </a>
-                      <figcaption> <a href="{{news.get_absolute_url}}">{{news.title}}</a> </figcaption>
+                      <figcaption> <a href="{{news.get_absolute_url}}">{{news.title}}</a> <p>View count <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for news %}</p> </figcaption>
                       <p>{{news.title}}</p>
                     </figure>
                   </li> 
@@ -94,7 +97,7 @@
                       {% if forloop.counter > 1 %}
                   <li>
                     <div class="media wow fadeInDown"> <a href="{{news.get_absolute_url}}" class="media-left"> <img alt="" src="{{news.image.url}}"> </a>
-                      <div class="media-body"> <a href="{{news.get_absolute_url}}" class="catg_title">{{news.title}}</a> </div>
+                      <div class="media-body"> <a href="{{news.get_absolute_url}}" class="catg_title">{{news.title}}</a> <p>View count <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for news %}</p> </div>
                     </div>
                   </li>   
                      {% endif %}

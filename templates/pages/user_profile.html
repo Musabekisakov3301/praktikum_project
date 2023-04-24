@@ -1,0 +1,19 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} User Profile {% endblock %}
+
+{% block content %}
+    <h1>Ассламу алейкум {{user.username}}</h1>
+    <h1><a href="{% url 'logout' %}" class="text-danger">Logout</a></h1>
+    <h2>Siz haqingizdagi ma'lumatlar</h2>
+    <img src="{{profile.photo.url}}" alt="" style="width: 30%;">
+    <h4>Date of birth: {{profile.date_of_birth}}</h4>
+    <label>Username:</label><input value="{{user.username}}" readonly placeholder="kiritilmagan"><br>
+    <label>Email:</label><input value="{{user.email}}" readonly placeholder="kiritilmagan"><br>
+    <label>Name:</label><input value="{{user.first_name}}" readonly placeholder="kiritilmagan"><br>
+    <label>Surname:</label><input value="{{user.last_name}}" readonly placeholder="kiritilmagan"><br>
+    
+    <h4><a href="{% url 'password_change' %}" style="color: red;">Change Password</a></h4>
+    <h4><a href="{% url 'edit_user_information' %}" class="text-danger">Edit User Information</a></h4>
+{% endblock %}

@@ -1,10 +1,53 @@
 {% extends 'news/base.html' %}
+{% load static %}
+{% load hitcount_tags %}
 
 {% block title %} {{news.title}} {% endblock %}
 
 {% block content %}
    <h2>{{news.title}}</h2>
-   <h5>{{news.publish_time}}</h5>
+   <h5>{{news.publish_time}} | <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for news %} | comment: {{comment_count}}</h5>
    <img src="{{news.image.url}}" alt="">
    <p>{{news.body}}</p>
+   
+   {% if request.user.is_authenticated and request.user.is_superuser %}
+   <div class="card-footer text-center">
+      <a href="{% url 'news_update' news.slug %}"><button class="btn btn-primary ml-2">Edit</button></a>
+      <a href="{% url 'news_delete' news.slug %}"><button class="btn btn-danger">Delete</button></a>
+   </div>
+   {% endif %} <br>
+   
+   <h3>Bu comment: {{comment_count}} </h3>
+
+   {% for comment in comments %}
+      <div class="comments" style="padding: 10px;">
+         <p class="font-weight-bold">
+            {{comment.user}}
+         </p>
+         <span class="text-muted font-weight-normal">
+            {{comment.created_time}}
+            
+         </span>
+         <p class="font-weight-bold">
+            {{comment.body | linebreaks}}
+         </p>
+      </div>
+   {% endfor %}
+   
+   {% if user.is_authenticated %}
+   <div class="col-md-8 card mb-4 mt-3">
+      <div class="card-body">
+         <h3>Comment</h3>
+         <form action="" method="POST">{% csrf_token %}
+            {{comment_form.as_p}}
+            <button class="btn btn-primary btn-lg">Send</button>
+         </form>
+      </div>
+   </div>
+   {% else %}
+   <div class="card-body">
+      <p class="text-danger">Tek Register den otgen user comment qaldiriw mumkin</p>
+      <p class="text-muted">Comment qaldiriw uchun <a href="{% url 'user_register' %}">Register den otin</a> yamasa <a href="{% url 'login' %}">Login</a> qilin</p>
+   </div>
+   {% endif %}
 {% endblock %}

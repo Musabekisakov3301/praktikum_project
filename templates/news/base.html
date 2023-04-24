@@ -36,9 +36,20 @@
               <li><a href="{% url 'home_page' %}">Home</a></li>
               <li><a href="#">About</a></li>
               <li><a href="{% url 'contact_page' %}">Contact</a></li>
+              {% if user.is_authenticated and user.is_superuser %}
+              <li><a href="{% url 'admin_page' %}">Admin Page</a></li>
+              {% endif %}
             </ul>
           </div>
           <div class="header_top_right">
+            {% if request.user.is_authenticated %}
+            <p><a href="{% url 'logout' %}" style="color: red;">Logout</a></p>
+            <p><a href="{% url 'user_profile' %}" style="color: yellow
+            ;">My profile</a></p>
+           
+            {% else %}
+            <p><a href="{% url 'login' %}" style="color: yellow;">Login</a></p>
+            {% endif %}
             <p>{% now 'JS F Y H:i' %}</p>
           </div>
         </div>
@@ -64,6 +75,11 @@
           <li><a href="{% url 'foreign_news_page' %}">World</a></li>
           <li><a href="{% url 'sport_news_page' %}">Sport</a></li>
           <li><a href="{% url 'contact_page' %}">Contact Us</a></li>
+          <li>
+              <form action="{% url 'search_results' %}" method="get">
+                  <input type="search" name="q" placeholder="searsh..." class="form-control">
+              </form>
+          </li>
         </ul>
       </div>
     </nav>
