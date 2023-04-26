@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5c*b#7&vz9r+1u^dw8^1ke#%+0+x%zv+#429u+rx_-1#qoom&@'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,11 +41,15 @@ INSTALLED_APPS = [
     'news_app',
     'accounts',
     'hitcount',
+    'modeltranslation',
+    'whitenoise',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -107,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -117,15 +122,37 @@ USE_L10N = True
 
 USE_TZ = True
 
+from django.utils.translation import gettext_lazy as _ 
+
+LANGUAGE = [
+    ('uz', _('Uzbek')),
+    ('en', _('English')),
+    ('ru', _('Russian')),
+    ('kr', _('Karakalpak')),
+]
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
+
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+#new
+MEDIA_ROOT = '/ home/djangomo/django-mohirdev-demo.uz/django/media'
+#Local
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # DEBUG = False
+
+#new
+STATIC_ROOT = '/home/djangomo/django-mohirdev-demo.uz/django/staticfiles'
+STATICFILES_DIRS = ('/home/djangomo/django-mohirdev-demo.uz/django/static',)
+
+#Local
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # DEBUG = True
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_FINDERS = [
       'django.contrib.staticfiles.finders.FileSystemFinder',
       'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -141,3 +168,6 @@ LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

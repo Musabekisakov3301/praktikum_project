@@ -183,7 +183,7 @@ class NewsDeleteView(OnlyLoggedSuperUser,DeleteView):
 
 class NewsCreateView(OnlyLoggedSuperUser,CreateView):
     model = News
-    fields = ('title','body','image','category','status',)
+    fields = ('title','title_uz','title_ru','title_en','body','body_uz','body_ru','body_en','image','category','status',)
     template_name = 'crud/news_edit.html'
 
 @login_required

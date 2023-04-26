@@ -1,11 +1,14 @@
 {% extends 'news/base.html' %}
 {% load static %}
 {% load hitcount_tags %}
+{% load i18n %}
 
-{% block title %} Bosh sahifa {% endblock %}
+{% block title %}
+    {% blocktrans %} Bosh sahifa {% endblocktrans %}
+{% endblock %}
 
 {% block content %}
- 
+
 <section id="sliderSection">
   <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-8">
@@ -22,7 +25,7 @@
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4">
       <div class="latest_post">
-        <h2><span>Latest post</span></h2>
+        <h2><span>{% blocktrans %} Latest post {% endblocktrans %}</span></h2>
         <div class="latest_post_container">
           <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
           <ul class="latest_postnav">
@@ -79,7 +82,7 @@
           <div class="fashion_technology_area">
             <div class="fashion">
               <div class="single_post_content">
-                <h2><span>Fashion</span></h2>
+                <h2><span>{% blocktrans %} Fashion {% endblocktrans %}</span></h2>
                 <ul class="business_catgnav wow fadeInDown">
                   {% for news in world_news %}
                      {% if forloop.first %}
